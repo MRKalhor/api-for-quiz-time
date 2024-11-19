@@ -23,7 +23,7 @@ def generate_questions(topic, num_questions=10):
         )
         
         # استخراج سوال تولیدشده از API
-        question_data = response['choices'][0]['message']['content']
+        question_data = response.choices[0].message['content']
         questions.append(question_data)
     
     return questions
@@ -44,8 +44,6 @@ for topic in topics:
     
     for question_text in new_questions:
         # پردازش پاسخ API و تبدیل آن به قالب JSON
-        # فرض می‌کنیم که پاسخ‌ها به فرمتی مثل زیر برگردانده می‌شوند:
-        # "سوال: ...\nگزینه‌ها: ...\nپاسخ صحیح: ..."
         lines = question_text.split('\n')
         question = lines[0].replace("سوال: ", "").strip()
         options = [opt.strip() for opt in lines[1].replace("گزینه‌ها: ", "").split(',')]
